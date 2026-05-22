@@ -28,12 +28,12 @@ app.use(
 );
 
 // ------------------------
-// DB PATH (IMPORTANT)
+// DB PATH
 // ------------------------
 const dbPath = path.join(__dirname, "data", "mockDb.json");
 
 // ------------------------
-// READ DB
+// READ DB SAFE
 // ------------------------
 const readDB = () => {
   try {
@@ -51,33 +51,18 @@ const readDB = () => {
 };
 
 // ------------------------
-// ✅ STATIC FRONTEND SERVE (IMPORTANT FIX)
+// STATIC FRONTEND (IMPORTANT)
 // ------------------------
-// If frontend build exists inside backend/public
 app.use(express.static(path.join(__dirname, "public")));
 
 // ------------------------
-// API ROOT CHECK
-// ------------------------
-app.get("/", (req, res) => {
-  res.json({
-    message: "Retail Hyper Personalisation API is running!",
-    status: "online",
-    dbPath,
-  });
-});
-
-// ------------------------
-// PRODUCTS API
+// API ROUTES
 // ------------------------
 app.get("/api/products", (req, res) => {
   const db = readDB();
   res.json(db.products || []);
 });
 
-// ------------------------
-// SEARCH API
-// ------------------------
 app.get("/api/products/search", (req, res) => {
   const db = readDB();
   const q = (req.query.q || "").toLowerCase();
@@ -89,9 +74,6 @@ app.get("/api/products/search", (req, res) => {
   res.json(result);
 });
 
-// ------------------------
-// RECOMMENDATIONS
-// ------------------------
 app.get("/api/products/recommendations", (req, res) => {
   const db = readDB();
 
@@ -102,9 +84,6 @@ app.get("/api/products/recommendations", (req, res) => {
   res.json(shuffled);
 });
 
-// ------------------------
-// OFFERS
-// ------------------------
 app.get("/api/offers", (req, res) => {
   const db = readDB();
   res.json(db.offers || []);
@@ -113,7 +92,6 @@ app.get("/api/offers", (req, res) => {
 // ------------------------
 // FRONTEND ROUTE FIX (IMPORTANT)
 // ------------------------
-// React routing fix (VERY IMPORTANT for Render)
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
@@ -122,6 +100,6 @@ app.get("*", (req, res) => {
 // START SERVER
 // ------------------------
 app.listen(PORT, "0.0.0.0", () => {
-  console.log("Server running on port", PORT);
-  console.log("DB:", dbPath);
+  console.log("🚀 Server running on port", PORT);
+  console.log("📂 DB:", dbPath);
 });
