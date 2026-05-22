@@ -1,0 +1,339 @@
+{
+  "users": [
+    {
+      "_id": "lkj1mfiqhmpgttbaa",
+      "createdAt": "2026-05-22T11:18:23.842Z",
+      "updatedAt": "2026-05-22T11:18:23.844Z",
+      "username": "Retail Admin",
+      "email": "admin@retail.com",
+      "passwordHash": "$2a$10$vjK65AGB.ZITZcI1E56UU.jc/j90.uQrneTevHOkjiR3hUW8bu2Yi",
+      "role": "admin"
+    },
+    {
+      "_id": "x1oqgh4qcmpgttbae",
+      "createdAt": "2026-05-22T11:18:23.846Z",
+      "updatedAt": "2026-05-22T11:18:23.846Z",
+      "username": "Alex Carter",
+      "email": "customer@retail.com",
+      "passwordHash": "$2a$10$vjK65AGB.ZITZcI1E56UU.eDLi2Iw6p2MepTf7XKxFGV15jMgx6yi",
+      "role": "customer"
+    }
+  ],
+  "products": [
+    {
+      "_id": "wk8fsxzzhmpgttbb0",
+      "createdAt": "2026-05-22T11:18:23.868Z",
+      "updatedAt": "2026-05-22T11:18:23.868Z",
+      "name": "Quantum Sound Wireless Headphones",
+      "description": "Noise-cancelling over-ear smart headphones with premium acoustic feedback and 40h battery runtime.",
+      "price": 199.99,
+      "category": "Electronics",
+      "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60",
+      "tags": [
+        "audio",
+        "wireless",
+        "headphones",
+        "premium",
+        "tech"
+      ],
+      "discountPercent": 15,
+      "stock": 25
+    },
+    {
+      "_id": "lwfw06es3mpgttbb0",
+      "createdAt": "2026-05-22T11:18:23.868Z",
+      "updatedAt": "2026-05-22T11:18:23.868Z",
+      "name": "AeroGlide Pro Smartwatch",
+      "description": "Vibrant AMOLED fitness tracker with heart monitoring, integrated GPS, and sleep analysis metrics.",
+      "price": 249.5,
+      "category": "Electronics",
+      "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60",
+      "tags": [
+        "wearable",
+        "smartwatch",
+        "fitness",
+        "tech",
+        "gadget"
+      ],
+      "discountPercent": 10,
+      "stock": 18
+    },
+    {
+      "_id": "n13nhuywrmpgttbb0",
+      "createdAt": "2026-05-22T11:18:23.868Z",
+      "updatedAt": "2026-05-22T11:18:23.868Z",
+      "name": "OmniView 4K Ultra Short Throw Projector",
+      "description": "Cinematic 2500 ANSI Lumens projector capable of displaying up to 120-inch displays natively.",
+      "price": 899.99,
+      "category": "Electronics",
+      "image": "https://images.unsplash.com/photo-1535016120720-40c646be5580?w=500&auto=format&fit=crop&q=60",
+      "tags": [
+        "cinema",
+        "projector",
+        "4k",
+        "media",
+        "home-theater"
+      ],
+      "discountPercent": 5,
+      "stock": 8
+    },
+    {
+      "_id": "uerm0z7x6mpgttbb0",
+      "createdAt": "2026-05-22T11:18:23.868Z",
+      "updatedAt": "2026-05-22T11:18:23.868Z",
+      "name": "Urban Knit Breathable Running Shoes",
+      "description": "Ultralight dual-density responsive athletic running shoes crafted from recycled oceanic plastics.",
+      "price": 120,
+      "category": "Fashion",
+      "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60",
+      "tags": [
+        "shoes",
+        "sneakers",
+        "activewear",
+        "fashion",
+        "runners"
+      ],
+      "discountPercent": 20,
+      "stock": 30
+    },
+    {
+      "_id": "ohbbt55kbmpgttbb0",
+      "createdAt": "2026-05-22T11:18:23.868Z",
+      "updatedAt": "2026-05-22T11:18:23.868Z",
+      "name": "Minimalist Camel Wool Trench Coat",
+      "description": "Sartorial luxury camel hair wool blend trench coat tailored for cold winter weather.",
+      "price": 280,
+      "category": "Fashion",
+      "image": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500&auto=format&fit=crop&q=60",
+      "tags": [
+        "jacket",
+        "coat",
+        "wool",
+        "winter",
+        "luxury"
+      ],
+      "discountPercent": 0,
+      "stock": 12
+    },
+    {
+      "_id": "ow8ht4vf1mpgttbb0",
+      "createdAt": "2026-05-22T11:18:23.868Z",
+      "updatedAt": "2026-05-22T11:18:23.868Z",
+      "name": "Polaroid Retro Acetate Sunglasses",
+      "description": "Classic tortoiseshell frames paired with high performance UV400 polarised lenses.",
+      "price": 65,
+      "category": "Fashion",
+      "image": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500&auto=format&fit=crop&q=60",
+      "tags": [
+        "accessories",
+        "sunglasses",
+        "summer",
+        "vintage",
+        "retro"
+      ],
+      "discountPercent": 15,
+      "stock": 50
+    },
+    {
+      "_id": "71vgqac8ompgttbb0",
+      "createdAt": "2026-05-22T11:18:23.868Z",
+      "updatedAt": "2026-05-22T11:18:23.868Z",
+      "name": "Apex Grip Anti-Slip Yoga Mat",
+      "description": "Dense natural rubber 6mm cushioning workout mat ensuring perfect grip during hot yoga sessions.",
+      "price": 75,
+      "category": "Fitness",
+      "image": "https://images.unsplash.com/photo-1592432678016-e910b452f9a2?w=500&auto=format&fit=crop&q=60",
+      "tags": [
+        "yoga",
+        "mat",
+        "pilates",
+        "home-gym",
+        "fitness"
+      ],
+      "discountPercent": 10,
+      "stock": 40
+    },
+    {
+      "_id": "vy4ynwvhympgttbb0",
+      "createdAt": "2026-05-22T11:18:23.868Z",
+      "updatedAt": "2026-05-22T11:18:23.868Z",
+      "name": "HexCast Solid Cast Iron Dumbbells (Pair - 15lbs)",
+      "description": "Ergonomic knurled chrome handles encased in thick noise-reducing hexagonal rubber bounds.",
+      "price": 55,
+      "category": "Fitness",
+      "image": "https://images.unsplash.com/photo-1638536532686-d610adfc8e5c?w=500&auto=format&fit=crop&q=60",
+      "tags": [
+        "weights",
+        "dumbbell",
+        "strength",
+        "home-gym"
+      ],
+      "discountPercent": 25,
+      "stock": 15
+    },
+    {
+      "_id": "j5vmonoedmpgttbb0",
+      "createdAt": "2026-05-22T11:18:23.868Z",
+      "updatedAt": "2026-05-22T11:18:23.868Z",
+      "name": "AromaSphere Ultrasonic Oil Diffuser",
+      "description": "Minimalist ceramic misting diffuser with dynamic warm LED mood lighting profiles.",
+      "price": 45,
+      "category": "Home",
+      "image": "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=500&auto=format&fit=crop&q=60",
+      "tags": [
+        "aromatherapy",
+        "diffuser",
+        "home-decor",
+        "candles"
+      ],
+      "discountPercent": 30,
+      "stock": 35
+    },
+    {
+      "_id": "ppc4yqfqnmpgttbb0",
+      "createdAt": "2026-05-22T11:18:23.868Z",
+      "updatedAt": "2026-05-22T11:18:23.868Z",
+      "name": "Handwoven Nordic Rattan Lounge Chair",
+      "description": "Comfortable accent lounge chair featuring natural peeled cane weave and black iron legs.",
+      "price": 320,
+      "category": "Home",
+      "image": "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=500&auto=format&fit=crop&q=60",
+      "tags": [
+        "furniture",
+        "chair",
+        "nordic",
+        "decor",
+        "rattan"
+      ],
+      "discountPercent": 0,
+      "stock": 7
+    }
+  ],
+  "behaviors": [
+    {
+      "_id": "oz7736vedmpgu0fjw",
+      "createdAt": "2026-05-22T11:23:55.964Z",
+      "updatedAt": "2026-05-22T11:23:55.964Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "click",
+      "details": {
+        "productId": "j5vmonoedmpgttbb0",
+        "name": "AromaSphere Ultrasonic Oil Diffuser",
+        "category": "Home",
+        "price": 45
+      },
+      "timestamp": "2026-05-22T11:23:55.962Z"
+    },
+    {
+      "_id": "8dazdjgilmpgu0kfd",
+      "createdAt": "2026-05-22T11:24:02.281Z",
+      "updatedAt": "2026-05-22T11:24:02.281Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "search",
+      "details": {
+        "queryText": "car"
+      },
+      "timestamp": "2026-05-22T11:24:02.279Z"
+    },
+    {
+      "_id": "32w34a9b3mpgu0om0",
+      "createdAt": "2026-05-22T11:24:07.704Z",
+      "updatedAt": "2026-05-22T11:24:07.704Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "search",
+      "details": {
+        "queryText": "car"
+      },
+      "timestamp": "2026-05-22T11:24:07.702Z"
+    },
+    {
+      "_id": "5att59huimpgu0xxx",
+      "createdAt": "2026-05-22T11:24:19.797Z",
+      "updatedAt": "2026-05-22T11:24:19.797Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "search",
+      "details": {
+        "queryText": "jeans"
+      },
+      "timestamp": "2026-05-22T11:24:19.795Z"
+    }
+  ],
+  "offers": [
+    {
+      "_id": "ihtzm4p58mpgttbb2",
+      "createdAt": "2026-05-22T11:18:23.870Z",
+      "updatedAt": "2026-05-22T11:18:23.870Z",
+      "title": "Tech Upgrade Voucher",
+      "description": "Save 15% off any item in our premium Electronics catalog. Perfect for upgrading your home workspace.",
+      "discountCode": "TECH15",
+      "targetSegment": "electronics_lovers",
+      "bannerImage": "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?w=1000&auto=format&fit=crop&q=80",
+      "active": true
+    },
+    {
+      "_id": "69y6p3lbdmpgttbb2",
+      "createdAt": "2026-05-22T11:18:23.870Z",
+      "updatedAt": "2026-05-22T11:18:23.870Z",
+      "title": "Style Renewal Event",
+      "description": "Revamp your wardrobe! Save 20% off all apparel and activewear shoes this weekend.",
+      "discountCode": "STYLE20",
+      "targetSegment": "fashion_lovers",
+      "bannerImage": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1000&auto=format&fit=crop&q=80",
+      "active": true
+    },
+    {
+      "_id": "o52fqsvffmpgttbb2",
+      "createdAt": "2026-05-22T11:18:23.870Z",
+      "updatedAt": "2026-05-22T11:18:23.870Z",
+      "title": "Flash Bargain Extravaganza",
+      "description": "Super Deal! Take an extra 25% off already discounted products. Stackable with existing markdowns.",
+      "discountCode": "SUPERSTEAL",
+      "targetSegment": "bargain_hunters",
+      "bannerImage": "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1000&auto=format&fit=crop&q=80",
+      "active": true
+    },
+    {
+      "_id": "a4kxvq0mhmpgttbb2",
+      "createdAt": "2026-05-22T11:18:23.870Z",
+      "updatedAt": "2026-05-22T11:18:23.870Z",
+      "title": "New Customer Starter Kit",
+      "description": "Welcome to PersonalShop! Get $10 store credit and 10% off your initial purchase.",
+      "discountCode": "WELCOME10",
+      "targetSegment": "new_users",
+      "bannerImage": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1000&auto=format&fit=crop&q=80",
+      "active": true
+    },
+    {
+      "_id": "y0td5ua8jmpgttbb2",
+      "createdAt": "2026-05-22T11:18:23.870Z",
+      "updatedAt": "2026-05-22T11:18:23.870Z",
+      "title": "Weekly Storewide Savings",
+      "description": "Get an extra 5% off everything on the website. No exclusions apply.",
+      "discountCode": "SAVE5",
+      "targetSegment": "all",
+      "bannerImage": "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1000&auto=format&fit=crop&q=80",
+      "active": true
+    }
+  ],
+  "preferences": [
+    {
+      "_id": "8dj5yvqtlmpgu0fk1",
+      "createdAt": "2026-05-22T11:23:55.969Z",
+      "updatedAt": "2026-05-22T11:23:55.969Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "categoryAffinity": {
+        "Home": 1
+      },
+      "searchKeywords": [
+        "car",
+        "jeans"
+      ],
+      "lastActive": "2026-05-22T11:24:19.800Z"
+    }
+  ]
+}
