@@ -3,11 +3,18 @@ import cors from "cors";
 import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// ------------------------
+// __dirname FIX (ES MODULE)
+// ------------------------
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // ------------------------
 // MIDDLEWARE
@@ -17,78 +24,66 @@ app.use(
   cors({
     origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
 // ------------------------
-// ✅ FIXED DB PATH (IMPORTANT)
+// DB PATH (IMPORTANT)
 // ------------------------
-// IMPORTANT: DO NOT add "backend" here on Render
-const dbPath = path.join(process.cwd(), "data", "mockDb.json");
+const dbPath = path.join(__dirname, "data", "mockDb.json");
 
 // ------------------------
-// READ DB SAFE
+// READ DB
 // ------------------------
 const readDB = () => {
   try {
     if (!fs.existsSync(dbPath)) {
-      console.error("❌ DB FILE NOT FOUND:", dbPath);
-      return { users: [], products: [], behaviors: [], offers: [] };
+      console.error("DB NOT FOUND:", dbPath);
+      return { products: [], offers: [], users: [] };
     }
 
     const data = fs.readFileSync(dbPath, "utf-8");
     return JSON.parse(data || "{}");
   } catch (err) {
-    console.error("❌ DB READ ERROR:", err.message);
-    return { users: [], products: [], behaviors: [], offers: [] };
+    console.error("DB ERROR:", err.message);
+    return { products: [], offers: [], users: [] };
   }
 };
 
 // ------------------------
-// HEALTH CHECK
+// ✅ STATIC FRONTEND SERVE (IMPORTANT FIX)
+// ------------------------
+// If frontend build exists inside backend/public
+app.use(express.static(path.join(__dirname, "public")));
+
+// ------------------------
+// API ROOT CHECK
 // ------------------------
 app.get("/", (req, res) => {
   res.json({
     message: "Retail Hyper Personalisation API is running!",
     status: "online",
-    mode: "FILE_DB (NO MongoDB)",
     dbPath,
-    timestamp: new Date().toISOString(),
   });
 });
 
 // ------------------------
-// PRODUCTS
+// PRODUCTS API
 // ------------------------
 app.get("/api/products", (req, res) => {
   const db = readDB();
-  let products = db.products || [];
-
-  const { category } = req.query;
-
-  if (category) {
-    products = products.filter(
-      (p) => (p.category || "").toLowerCase() === category.toLowerCase()
-    );
-  }
-
-  res.json(products);
+  res.json(db.products || []);
 });
 
 // ------------------------
-// SEARCH
+// SEARCH API
 // ------------------------
 app.get("/api/products/search", (req, res) => {
   const db = readDB();
-  const products = db.products || [];
+  const q = (req.query.q || "").toLowerCase();
 
-  const q = (req.query.q || "").trim().toLowerCase();
-
-  if (!q) return res.json([]);
-
-  const result = products.filter((p) =>
-    (p.name || "").toLowerCase().includes(q)
+  const result = (db.products || []).filter((p) =>
+    p.name.toLowerCase().includes(q)
   );
 
   res.json(result);
@@ -99,9 +94,8 @@ app.get("/api/products/search", (req, res) => {
 // ------------------------
 app.get("/api/products/recommendations", (req, res) => {
   const db = readDB();
-  const products = db.products || [];
 
-  const shuffled = [...products]
+  const shuffled = [...(db.products || [])]
     .sort(() => Math.random() - 0.5)
     .slice(0, 5);
 
@@ -113,31 +107,21 @@ app.get("/api/products/recommendations", (req, res) => {
 // ------------------------
 app.get("/api/offers", (req, res) => {
   const db = readDB();
-
   res.json(db.offers || []);
 });
 
 // ------------------------
-// BEHAVIOR LOG
+// FRONTEND ROUTE FIX (IMPORTANT)
 // ------------------------
-app.post("/api/behaviors/log", (req, res) => {
-  console.log("📊 Behavior logged:", req.body);
-
-  res.json({
-    success: true,
-    segment: "new_users",
-    affinity: {
-      Electronics: 10,
-      Fashion: 5,
-    },
-  });
+// React routing fix (VERY IMPORTANT for Render)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // ------------------------
 // START SERVER
 // ------------------------
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`🟢 FILE DB MODE ACTIVE`);
-  console.log(`📂 DB PATH: ${dbPath}`);
+  console.log("Server running on port", PORT);
+  console.log("DB:", dbPath);
 });
