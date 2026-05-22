@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 
 const AppContext = createContext();
 
-const API_BASE_URL = "https://retail-hyper-personalisation-new.onrender.com";
+const API_BASE_URL = "https://retail-hyper-personalisation-new.onrender.com/api";
 // Generate session ID if not already present
 const getOrCreateSessionId = () => {
   let sId = localStorage.getItem('retail_session_id');
