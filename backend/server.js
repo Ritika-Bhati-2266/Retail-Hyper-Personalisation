@@ -22,10 +22,10 @@ app.use(
 );
 
 // ------------------------
-// FIXED DB PATH (RENDER + LOCAL SAFE)
-// IMPORTANT: Render root = project root
+// ✅ FIXED DB PATH (IMPORTANT)
 // ------------------------
-const dbPath = path.resolve("backend", "data", "mockDb.json");
+// IMPORTANT: DO NOT add "backend" here on Render
+const dbPath = path.join(process.cwd(), "data", "mockDb.json");
 
 // ------------------------
 // READ DB SAFE
@@ -59,7 +59,7 @@ app.get("/", (req, res) => {
 });
 
 // ------------------------
-// GET PRODUCTS
+// PRODUCTS
 // ------------------------
 app.get("/api/products", (req, res) => {
   const db = readDB();
@@ -77,7 +77,7 @@ app.get("/api/products", (req, res) => {
 });
 
 // ------------------------
-// SEARCH PRODUCTS (FIXED)
+// SEARCH
 // ------------------------
 app.get("/api/products/search", (req, res) => {
   const db = readDB();
@@ -114,12 +114,7 @@ app.get("/api/products/recommendations", (req, res) => {
 app.get("/api/offers", (req, res) => {
   const db = readDB();
 
-  res.json(
-    db.offers || [
-      { id: 1, title: "Flat 50% OFF", category: "Fashion" },
-      { id: 2, title: "Buy 1 Get 1", category: "Electronics" },
-    ]
-  );
+  res.json(db.offers || []);
 });
 
 // ------------------------
@@ -139,7 +134,7 @@ app.post("/api/behaviors/log", (req, res) => {
 });
 
 // ------------------------
-// START SERVER (IMPORTANT FOR RENDER)
+// START SERVER
 // ------------------------
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Server running on port ${PORT}`);
