@@ -17,36 +17,35 @@ app.use(cors({
 }));
 
 // ------------------------
-// FIX: safer path for Render
+// FIXED DB PATH (Render safe)
 // ------------------------
 const dbPath = path.join(process.cwd(), 'data', 'mockDb.json');
 
 // ------------------------
-// READ DB SAFE
+// READ DB SAFE (FIXED)
 // ------------------------
 const readDB = () => {
   try {
     if (!fs.existsSync(dbPath)) {
       console.error("❌ DB file not found:", dbPath);
-      return [];
+      return {
+        users: [],
+        products: [],
+        behaviors: [],
+        offers: []
+      };
     }
 
     const data = fs.readFileSync(dbPath, 'utf-8');
-    return JSON.parse(data || '[]');
+    return JSON.parse(data || '{}');
   } catch (err) {
     console.error("❌ DB read error:", err.message);
-    return [];
-  }
-};
-
-// ------------------------
-// WRITE DB (future use)
-// ------------------------
-const writeDB = (data) => {
-  try {
-    fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
-  } catch (err) {
-    console.error("❌ DB write error:", err.message);
+    return {
+      users: [],
+      products: [],
+      behaviors: [],
+      offers: []
+    };
   }
 };
 
@@ -63,11 +62,13 @@ app.get('/', (req, res) => {
 });
 
 // ------------------------
-// PRODUCTS
+// PRODUCTS API
 // ------------------------
 app.get('/api/products', (req, res) => {
   const { category } = req.query;
-  let products = readDB();
+
+  const db = readDB();
+  let products = db.products || [];
 
   if (category) {
     products = products.filter(
@@ -79,11 +80,13 @@ app.get('/api/products', (req, res) => {
 });
 
 // ------------------------
-// SEARCH
+// SEARCH API
 // ------------------------
 app.get('/api/products/search', (req, res) => {
   const q = (req.query.q || '').toLowerCase();
-  const products = readDB();
+
+  const db = readDB();
+  const products = db.products || [];
 
   const result = products.filter(p =>
     p.name?.toLowerCase().includes(q)
@@ -96,7 +99,8 @@ app.get('/api/products/search', (req, res) => {
 // RECOMMENDATIONS
 // ------------------------
 app.get('/api/products/recommendations', (req, res) => {
-  const products = readDB();
+  const db = readDB();
+  const products = db.products || [];
 
   const shuffled = [...products]
     .sort(() => Math.random() - 0.5)
@@ -109,7 +113,9 @@ app.get('/api/products/recommendations', (req, res) => {
 // OFFERS
 // ------------------------
 app.get('/api/offers', (req, res) => {
-  res.json([
+  const db = readDB();
+
+  res.json(db.offers || [
     { id: 1, title: "Flat 50% OFF", category: "Fashion" },
     { id: 2, title: "Buy 1 Get 1", category: "Electronics" }
   ]);
@@ -132,7 +138,7 @@ app.post('/api/behaviors/log', (req, res) => {
 });
 
 // ------------------------
-// START SERVER (IMPORTANT FOR RENDER)
+// START SERVER
 // ------------------------
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
