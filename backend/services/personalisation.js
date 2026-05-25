@@ -70,15 +70,11 @@ export async function logEvent(sessionId, userId, eventType, details = {}) {
     if (eventType === 'search' && details.queryText) {
       const queryText = details.queryText.toLowerCase().trim();
       if (queryText) {
-        // Track keywords
-        if (!profile.searchKeywords.includes(queryText)) {
-          // If mongoose Map or normal array
-          if (Array.isArray(profile.searchKeywords)) {
-            profile.searchKeywords.push(queryText);
-          } else {
-            profile.searchKeywords = [queryText];
-          }
-        }
+        // Track keywords - keep unique, insert at front, limit to 10
+        let keywords = Array.isArray(profile.searchKeywords) ? [...profile.searchKeywords] : [];
+        keywords = keywords.filter(kw => kw !== queryText);
+        keywords.unshift(queryText);
+        profile.searchKeywords = keywords.slice(0, 10);
         
         // Scan categories to see if query matches a category name
         const categories = ['electronics', 'fashion', 'fitness', 'home', 'apparel', 'sports', 'books'];
@@ -87,6 +83,36 @@ export async function logEvent(sessionId, userId, eventType, details = {}) {
           const catKey = matchedCategory.charAt(0).toUpperCase() + matchedCategory.slice(1);
           affinity[catKey] = (affinity[catKey] || 0) + 2;
         }
+      }
+    }
+
+    // 4. Update click frequency and recently viewed products
+    if (details.productId) {
+      const prodId = details.productId.toString();
+
+      // Click frequency (on click event)
+      if (eventType === 'click') {
+        const clickFreq = profile.clickFrequency instanceof Map 
+          ? Object.fromEntries(profile.clickFrequency) 
+          : (profile.clickFrequency || {});
+        
+        clickFreq[prodId] = (clickFreq[prodId] || 0) + 1;
+        
+        if (profile.clickFrequency instanceof Map) {
+          for (const [k, v] of Object.entries(clickFreq)) {
+            profile.clickFrequency.set(k, v);
+          }
+        } else {
+          profile.clickFrequency = clickFreq;
+        }
+      }
+
+      // Recently viewed (on click event)
+      if (eventType === 'click') {
+        let recentlyViewed = profile.recentlyViewed || [];
+        recentlyViewed = recentlyViewed.filter(id => id !== prodId);
+        recentlyViewed.unshift(prodId);
+        profile.recentlyViewed = recentlyViewed.slice(0, 15);
       }
     }
 
@@ -174,46 +200,166 @@ export async function getRecommendations(sessionId, userId, limit = 8) {
     // Fallback if no products
     if (allProducts.length === 0) return [];
 
-    // Fallback: If no preference profile or affinities, return top discounted and newest products
+    // Calculate global trending scores from all behavior logs
+    const behaviors = await BehaviorLog.find({});
+    const trendingScores = {};
+    
+    // Process behaviors (only recent ones, e.g. within 7 days, or last 500 logs)
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    
+    const recentBehaviors = behaviors.filter(b => {
+      const timestamp = new Date(b.timestamp || b.createdAt);
+      return timestamp >= sevenDaysAgo;
+    });
+
+    for (const b of recentBehaviors) {
+      if (b.details && b.details.productId) {
+        const prodId = b.details.productId;
+        let weight = 0;
+        if (b.eventType === 'click') weight = 1;
+        if (b.eventType === 'cart') weight = 5;
+        if (b.eventType === 'purchase') weight = 10;
+        
+        trendingScores[prodId] = (trendingScores[prodId] || 0) + weight;
+      }
+    }
+
+    // Extract profile values with fallbacks
     const affinity = profile ? (profile.categoryAffinity instanceof Map
       ? Object.fromEntries(profile.categoryAffinity)
       : (profile.categoryAffinity || {})) : {};
 
-    const entries = Object.entries(affinity);
-    
-    if (!profile || entries.length === 0) {
-      // Popular / Trending: sort by discountPercent desc, stock desc
-      return allProducts
-        .sort((a, b) => (b.discountPercent || 0) - (a.discountPercent || 0))
-        .slice(0, limit);
-    }
+    const recentlyViewed = profile ? (profile.recentlyViewed || []) : [];
 
-    // Sort categories by user interest weight
-    const categoryWeights = new Map(entries);
+    const clickFreq = profile ? (profile.clickFrequency instanceof Map
+      ? Object.fromEntries(profile.clickFrequency)
+      : (profile.clickFrequency || {})) : {};
 
-    // Score products: weight = (categoryAffinity * 2) + (discountPercent / 10) + (tagMatches * 3)
+    const searchKeywords = profile ? (profile.searchKeywords || []) : [];
+
+    // Score all products
     const scoredProducts = allProducts.map(prod => {
-      const catWeight = categoryWeights.get(prod.category) || 0;
-      let score = catWeight * 5; // Heavily weight category matches
-      
-      // Add discount weight
-      score += (prod.discountPercent || 0) * 0.5;
+      let score = 0;
+      const prodId = prod._id.toString();
 
-      // Tag matching
-      if (profile.searchKeywords && profile.searchKeywords.length > 0 && prod.tags) {
-        const tagMatches = prod.tags.filter(tag => 
-          profile.searchKeywords.some(keyword => keyword.includes(tag.toLowerCase()) || tag.toLowerCase().includes(keyword))
-        ).length;
-        score += tagMatches * 10;
+      // 1. Category Affinity
+      const catWeight = affinity[prod.category] || 0;
+      score += catWeight * 6;
+
+      // 2. Click Frequency on this specific product
+      const userProductClicks = clickFreq[prodId] || 0;
+      score += Math.min(userProductClicks, 5) * 8;
+
+      // 3. Recently Viewed Category & Tag match
+      // If product was recently viewed, give a direct boost to keep it recommended
+      const recencyIndex = recentlyViewed.indexOf(prodId);
+      if (recencyIndex !== -1) {
+        // Boost based on recency: first gets more boost
+        score += Math.max(0, 15 - recencyIndex * 2);
       }
-      
-      return { product: prod, score };
+
+      // Check similarity with the top 3 recently viewed products
+      const topRecentIds = recentlyViewed.slice(0, 3);
+      for (const recentId of topRecentIds) {
+        const recentProd = allProducts.find(p => p._id.toString() === recentId);
+        if (recentProd) {
+          if (recentProd.category === prod.category) {
+            score += 8; // Category similarity boost
+          }
+          if (recentProd.tags && prod.tags) {
+            const commonTags = prod.tags.filter(t => recentProd.tags.includes(t)).length;
+            score += commonTags * 3; // Tag similarity boost
+          }
+        }
+      }
+
+      // 4. Search Keywords match
+      let keywordScore = 0;
+      if (searchKeywords.length > 0) {
+        const productNameLower = (prod.name || '').toLowerCase();
+        const productDescLower = (prod.description || '').toLowerCase();
+        
+        searchKeywords.forEach((keyword, idx) => {
+          const kw = keyword.toLowerCase().trim();
+          if (!kw) return;
+          
+          let match = false;
+          let matchScore = 0;
+          if (productNameLower.includes(kw) || prod.category.toLowerCase().includes(kw)) {
+            matchScore += 12;
+            match = true;
+          }
+          if (prod.tags && prod.tags.some(t => t.toLowerCase().includes(kw) || kw.includes(t.toLowerCase()))) {
+            matchScore += 8;
+            match = true;
+          }
+          if (productDescLower.includes(kw)) {
+            matchScore += 4;
+            match = true;
+          }
+          
+          // Apply recency decay: newer keywords have more weight
+          if (match) {
+            const decay = Math.max(0.2, 1 - idx * 0.15);
+            keywordScore += matchScore * decay;
+          }
+        });
+        score += keywordScore;
+      }
+
+      // 5. Global Trending Score
+      const trendScore = trendingScores[prodId] || 0;
+      score += trendScore * 2;
+
+      // 6. Base / Discount Boost
+      const discountScore = (prod.discountPercent || 0) * 0.4;
+      score += discountScore;
+
+      // Compute Recommendation Reason based on maximum contribution
+      let reason = "Recommended for you";
+      let maxContribution = 0;
+
+      if (trendScore * 2 > maxContribution && trendScore > 0) {
+        maxContribution = trendScore * 2;
+        reason = "Trending Now";
+      }
+      if (catWeight * 6 > maxContribution && catWeight > 0) {
+        maxContribution = catWeight * 6;
+        reason = `Popular in ${prod.category}`;
+      }
+      if (userProductClicks * 8 > maxContribution && userProductClicks > 0) {
+        maxContribution = userProductClicks * 8;
+        reason = "Frequently Visited";
+      }
+      if (recencyIndex !== -1 && Math.max(0, 15 - recencyIndex * 2) > maxContribution) {
+        maxContribution = Math.max(0, 15 - recencyIndex * 2);
+        reason = "Recently Viewed";
+      }
+      if (keywordScore > maxContribution && keywordScore > 0) {
+        maxContribution = keywordScore;
+        reason = "Based on search";
+      }
+      if (discountScore > maxContribution && prod.discountPercent > 15) {
+        maxContribution = discountScore;
+        reason = "Great Deal";
+      }
+
+      // Convert to plain object to attach metadata
+      const prodObj = typeof prod.toObject === 'function' ? prod.toObject() : JSON.parse(JSON.stringify(prod));
+      prodObj.recommendationReason = reason;
+
+      return { product: prodObj, score };
     });
 
-    // Sort by score desc and return products
+    // Sort by score desc, fallback to discount
     return scoredProducts
-      .filter(item => item.score > 0)
-      .sort((a, b) => b.score - a.score)
+      .sort((a, b) => {
+        if (b.score !== a.score) {
+          return b.score - a.score;
+        }
+        return (b.product.discountPercent || 0) - (a.product.discountPercent || 0);
+      })
       .map(item => item.product)
       .slice(0, limit);
 

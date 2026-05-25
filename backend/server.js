@@ -1,10 +1,11 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { connectDB } from "./config/db.js";
 
+// Load environment variables
 dotenv.config();
 
 const app = express();
@@ -24,82 +25,65 @@ app.use(
   cors({
     origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
 
 // ------------------------
-// DB PATH
+// DATABASE CONNECTION
 // ------------------------
-const dbPath = path.join(__dirname, "data", "mockDb.json");
+connectDB()
+  .then(() => {
+    console.log("✅ Database initialized successfully");
+  })
+  .catch((err) => {
+    console.error("❌ Database connection failed:", err.message);
+  });
 
 // ------------------------
-// READ DB SAFE
+// IMPORT ROUTERS
 // ------------------------
-const readDB = () => {
-  try {
-    if (!fs.existsSync(dbPath)) {
-      console.error("DB NOT FOUND:", dbPath);
-      return { products: [], offers: [], users: [] };
-    }
-
-    const data = fs.readFileSync(dbPath, "utf-8");
-    return JSON.parse(data || "{}");
-  } catch (err) {
-    console.error("DB ERROR:", err.message);
-    return { products: [], offers: [], users: [] };
-  }
-};
+import authRouter from "./routes/auth.js";
+import productsRouter from "./routes/products.js";
+import behaviorsRouter from "./routes/behaviors.js";
+import offersRouter from "./routes/offers.js";
+import adminRouter from "./routes/admin.js";
 
 // ------------------------
-// STATIC FRONTEND (IMPORTANT)
+// MOUNT API ROUTES
+// ------------------------
+app.use("/api/auth", authRouter);
+app.use("/api/products", productsRouter);
+app.use("/api/behaviors", behaviorsRouter);
+app.use("/api/offers", offersRouter);
+app.use("/api/admin", adminRouter);
+
+// ------------------------
+// STATIC FRONTEND SERVE
 // ------------------------
 app.use(express.static(path.join(__dirname, "public")));
 
 // ------------------------
-// API ROUTES
-// ------------------------
-app.get("/api/products", (req, res) => {
-  const db = readDB();
-  res.json(db.products || []);
-});
-
-app.get("/api/products/search", (req, res) => {
-  const db = readDB();
-  const q = (req.query.q || "").toLowerCase();
-
-  const result = (db.products || []).filter((p) =>
-    p.name.toLowerCase().includes(q)
-  );
-
-  res.json(result);
-});
-
-app.get("/api/products/recommendations", (req, res) => {
-  const db = readDB();
-
-  const shuffled = [...(db.products || [])]
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 5);
-
-  res.json(shuffled);
-});
-
-app.get("/api/offers", (req, res) => {
-  const db = readDB();
-  res.json(db.offers || []);
-});
-
-// ------------------------
-// FRONTEND ROUTE FIX (IMPORTANT)
+// FRONTEND ROUTE WILD CARD (SPA)
 // ------------------------
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // ------------------------
+// GLOBAL ERROR HANDLER
+// ------------------------
+app.use((err, req, res, next) => {
+  console.error("❌ Server Error:", err.stack);
+  res.status(500).json({
+    message: "Internal Server Error",
+    error: process.env.NODE_ENV === "development" ? err.message : {}
+  });
+});
+
+// ------------------------
 // START SERVER
 // ------------------------
 app.listen(PORT, "0.0.0.0", () => {
-  console.log("🚀 Server running on port", PORT);
-  console.log("📂 DB:", dbPath);
+  console.log(`🚀 Server successfully started on port ${PORT}`);
 });

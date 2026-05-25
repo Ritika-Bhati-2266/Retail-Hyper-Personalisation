@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 
 const AppContext = createContext();
 
-const API_BASE_URL = "https://retail-hyper-personalisation-new.onrender.com/api";
+const API_BASE_URL = import.meta.env.DEV ? "http://localhost:5000/api" : "/api";
 
 // Session ID generator
 const getOrCreateSessionId = () => {

@@ -6,6 +6,8 @@ const preferenceSchema = new mongoose.Schema({
   sessionId: { type: String, required: true },
   categoryAffinity: { type: Map, of: Number, default: {} },
   searchKeywords: { type: [String], default: [] },
+  recentlyViewed: { type: [String], default: [] },
+  clickFrequency: { type: Map, of: Number, default: {} },
   lastActive: { type: Date, default: Date.now }
 });
 

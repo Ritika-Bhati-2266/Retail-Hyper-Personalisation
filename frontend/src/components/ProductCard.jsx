@@ -1,6 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { ShoppingCart, Star, Flame } from 'lucide-react';
+import { ShoppingCart, Star, Flame, Sparkles } from 'lucide-react';
 
 export default function ProductCard({ product }) {
   const { addToCart, logBehavior } = useApp();
@@ -59,6 +59,14 @@ export default function ProductCard({ product }) {
           ))}
           <span className="text-[10px] text-text-secondary font-bold ml-1.5">(4.8)</span>
         </div>
+
+        {/* Recommendation Reason */}
+        {product.recommendationReason && (
+          <div className="flex items-center gap-1.5 text-[10px] font-bold text-brand-indigo dark:text-indigo-400 mb-2 uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5 text-brand-indigo dark:text-indigo-400 animate-pulse-glow" />
+            <span>{product.recommendationReason}</span>
+          </div>
+        )}
 
         {/* Title */}
         <h3 className="text-sm font-bold text-text-primary group-hover:text-brand-indigo transition duration-300 truncate mb-1">

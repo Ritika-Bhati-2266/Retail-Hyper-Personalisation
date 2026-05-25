@@ -49,7 +49,7 @@ export default function RecommendationSection() {
 
       {/* Grid of Recommended Products */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-        {recommendations.slice(0, 4).map((product) => (
+        {recommendations.slice(0, 8).map((product) => (
           <ProductCard key={product._id} product={product} />
         ))}
       </div>
