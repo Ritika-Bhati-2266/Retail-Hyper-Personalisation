@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 
 const AppContext = createContext();
 
-const API_BASE_URL = import.meta.env.DEV ? "http://localhost:5000/api" : "/api";
+const API_BASE_URL = (import.meta.env.DEV || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? "http://localhost:5000/api" : "/api";
 
 // Session ID generator
 const getOrCreateSessionId = () => {
@@ -32,6 +32,7 @@ export const AppProvider = ({ children }) => {
 
   const [products, setProducts] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
+  const [recLoading, setRecLoading] = useState(false);
   const [offers, setOffers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -131,6 +132,7 @@ export const AppProvider = ({ children }) => {
   // PERSONALIZATION
   // =========================
   const fetchPersonalizedData = async () => {
+    setRecLoading(true);
     try {
       const recRes = await fetch(
         `${API_BASE_URL}/products/recommendations?sessionId=${sessionId}`,
@@ -149,6 +151,8 @@ export const AppProvider = ({ children }) => {
       if (Array.isArray(offData)) setOffers(offData);
     } catch (err) {
       console.log("Personalization error:", err.message);
+    } finally {
+      setRecLoading(false);
     }
   };
 
@@ -279,6 +283,7 @@ export const AppProvider = ({ children }) => {
         token,
         products,
         recommendations,
+        recLoading,
         offers,
         loading,
         error,

@@ -1,10 +1,11 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
 import ProductCard from './ProductCard';
-import { Sparkles, TrendingUp } from 'lucide-react';
+import Skeleton from './Skeleton';
+import { Sparkles, TrendingUp, RefreshCw } from 'lucide-react';
 
 export default function RecommendationSection() {
-  const { recommendations, categoryAffinity } = useApp();
+  const { recommendations, categoryAffinity, recLoading, refreshPersonalization } = useApp();
 
   const getTopCategory = () => {
     const entries = Object.entries(categoryAffinity);
@@ -14,7 +15,8 @@ export default function RecommendationSection() {
 
   const topCategory = getTopCategory();
 
-  if (recommendations.length === 0) return null;
+  // If recommendations is empty and not loading, we can return null, but if it is loading we should still show skeletons!
+  if (recommendations.length === 0 && !recLoading) return null;
 
   return (
     <div className="space-y-6 pt-2">
@@ -27,6 +29,14 @@ export default function RecommendationSection() {
               <Sparkles className="w-5 h-5 text-brand-indigo animate-pulse-glow" />
             </div>
             <span>Recommended for You</span>
+            <button
+              onClick={refreshPersonalization}
+              disabled={recLoading}
+              className="p-1.5 hover:bg-bg-secondary hover:text-brand-indigo text-text-muted rounded-xl transition-all duration-300 disabled:opacity-50 cursor-pointer ml-1"
+              title="Refresh Recommendations"
+            >
+              <RefreshCw className={`w-4 h-4 ${recLoading ? 'animate-spin text-brand-indigo' : ''}`} />
+            </button>
           </h2>
           <p className="text-xs text-text-secondary mt-1">
             Dynamic recommendations updating instantly as you search and click.
@@ -48,10 +58,14 @@ export default function RecommendationSection() {
       </div>
 
       {/* Grid of Recommended Products */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-        {recommendations.slice(0, 8).map((product) => (
-          <ProductCard key={product._id} product={product} />
-        ))}
+      <div className={`grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 transition-all duration-500 ${recLoading ? 'opacity-60 scale-[0.99]' : 'opacity-100 scale-100'}`}>
+        {recLoading ? (
+          <Skeleton count={8} />
+        ) : (
+          recommendations.slice(0, 8).map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))
+        )}
       </div>
     </div>
   );
