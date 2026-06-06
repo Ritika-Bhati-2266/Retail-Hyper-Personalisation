@@ -118,7 +118,13 @@ export default function Navbar() {
               onChange={(e) => setSearchVal(e.target.value)}
               className="w-full h-10 px-4 pl-11 rounded-full bg-bg-secondary/60 border border-border-custom text-xs font-medium text-text-primary placeholder-text-muted focus:outline-none focus:border-brand-indigo focus:ring-1 focus:ring-brand-indigo/40 focus:bg-bg-secondary transition-all duration-300"
             />
-            <Search className="absolute left-4 top-3 w-4 h-4 text-text-muted" />
+            {loading ? (
+              <div className="absolute left-4 top-3 animate-spin">
+                <Search className="w-4 h-4 text-brand-indigo" />
+              </div>
+            ) : (
+              <Search className="absolute left-4 top-3 w-4 h-4 text-text-muted" />
+            )}
           </form>
 
           {/* Navigation Items */}

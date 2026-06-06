@@ -17,6 +17,15 @@
       "email": "customer@retail.com",
       "passwordHash": "$2a$10$vjK65AGB.ZITZcI1E56UU.eDLi2Iw6p2MepTf7XKxFGV15jMgx6yi",
       "role": "customer"
+    },
+    {
+      "_id": "mb8poro0umpntf26u",
+      "createdAt": "2026-05-27T08:41:42.102Z",
+      "updatedAt": "2026-05-27T08:41:42.102Z",
+      "username": "R",
+      "email": "r@gmail.com",
+      "passwordHash": "$2a$10$TwKTKNtZePdeRZ9peVEUS.y3rZxUhLSuiGXLiFoEg0w4QOPeuJNju",
+      "role": "customer"
     }
   ],
   "products": [
@@ -272,6 +281,431 @@
         "queryText": "car"
       },
       "timestamp": "2026-05-22T11:44:31.149Z"
+    },
+    {
+      "_id": "ez5f13h5fmpnt43vq",
+      "createdAt": "2026-05-27T08:33:11.078Z",
+      "updatedAt": "2026-05-27T08:33:11.078Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "click",
+      "details": {
+        "productId": "n13nhuywrmpgttbb0",
+        "name": "OmniView 4K Ultra Short Throw Projector",
+        "category": "Electronics",
+        "price": 899.99
+      },
+      "timestamp": "2026-05-27T08:33:11.074Z"
+    },
+    {
+      "_id": "m9kt61pzympnt46bm",
+      "createdAt": "2026-05-27T08:33:14.242Z",
+      "updatedAt": "2026-05-27T08:33:14.242Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "click",
+      "details": {
+        "productId": "n13nhuywrmpgttbb0",
+        "name": "OmniView 4K Ultra Short Throw Projector",
+        "category": "Electronics",
+        "price": 899.99
+      },
+      "timestamp": "2026-05-27T08:33:14.241Z"
+    },
+    {
+      "_id": "jjb5j641gmpnt4998",
+      "createdAt": "2026-05-27T08:33:18.044Z",
+      "updatedAt": "2026-05-27T08:33:18.044Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "click",
+      "details": {
+        "productId": "lwfw06es3mpgttbb0",
+        "name": "AeroGlide Pro Smartwatch",
+        "category": "Electronics",
+        "price": 249.5
+      },
+      "timestamp": "2026-05-27T08:33:18.043Z"
+    },
+    {
+      "_id": "q8kpkphdwmpnt96v8",
+      "createdAt": "2026-05-27T08:37:08.228Z",
+      "updatedAt": "2026-05-27T08:37:08.228Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "click",
+      "details": {
+        "productId": "n13nhuywrmpgttbb0",
+        "name": "OmniView 4K Ultra Short Throw Projector",
+        "category": "Electronics",
+        "price": 899.99
+      },
+      "timestamp": "2026-05-27T08:37:08.227Z"
+    },
+    {
+      "_id": "yet4ce9ahmpnt97fw",
+      "createdAt": "2026-05-27T08:37:08.972Z",
+      "updatedAt": "2026-05-27T08:37:08.972Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "click",
+      "details": {
+        "productId": "n13nhuywrmpgttbb0",
+        "name": "OmniView 4K Ultra Short Throw Projector",
+        "category": "Electronics",
+        "price": 899.99
+      },
+      "timestamp": "2026-05-27T08:37:08.967Z"
+    },
+    {
+      "_id": "rsceed5m1mpnt98s6",
+      "createdAt": "2026-05-27T08:37:10.710Z",
+      "updatedAt": "2026-05-27T08:37:10.710Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "click",
+      "details": {
+        "productId": "n13nhuywrmpgttbb0",
+        "name": "OmniView 4K Ultra Short Throw Projector",
+        "category": "Electronics",
+        "price": 899.99
+      },
+      "timestamp": "2026-05-27T08:37:10.709Z"
+    },
+    {
+      "_id": "3pmrb4o8lmpnt9hme",
+      "createdAt": "2026-05-27T08:37:22.166Z",
+      "updatedAt": "2026-05-27T08:37:22.166Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "cart",
+      "details": {
+        "productId": "wk8fsxzzhmpgttbb0"
+      },
+      "timestamp": "2026-05-27T08:37:22.164Z"
+    },
+    {
+      "_id": "46esqqj8jmpnt9i6z",
+      "createdAt": "2026-05-27T08:37:22.907Z",
+      "updatedAt": "2026-05-27T08:37:22.907Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "click",
+      "details": {
+        "productId": "wk8fsxzzhmpgttbb0",
+        "name": "Quantum Sound Wireless Headphones",
+        "category": "Electronics",
+        "price": 199.99
+      },
+      "timestamp": "2026-05-27T08:37:22.906Z"
+    },
+    {
+      "_id": "69016pnmimpntbivw",
+      "createdAt": "2026-05-27T08:38:57.116Z",
+      "updatedAt": "2026-05-27T08:38:57.116Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "click",
+      "details": {
+        "productId": "n13nhuywrmpgttbb0",
+        "name": "OmniView 4K Ultra Short Throw Projector",
+        "category": "Electronics",
+        "price": 899.99
+      },
+      "timestamp": "2026-05-27T08:38:57.115Z"
+    },
+    {
+      "_id": "g31qygu0xmpntbkmn",
+      "createdAt": "2026-05-27T08:38:59.375Z",
+      "updatedAt": "2026-05-27T08:38:59.375Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "click",
+      "details": {
+        "productId": "n13nhuywrmpgttbb0",
+        "name": "OmniView 4K Ultra Short Throw Projector",
+        "category": "Electronics",
+        "price": 899.99
+      },
+      "timestamp": "2026-05-27T08:38:59.374Z"
+    },
+    {
+      "_id": "049k2knr8mpntbmkt",
+      "createdAt": "2026-05-27T08:39:01.901Z",
+      "updatedAt": "2026-05-27T08:39:01.901Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "cart",
+      "details": {
+        "productId": "n13nhuywrmpgttbb0"
+      },
+      "timestamp": "2026-05-27T08:39:01.900Z"
+    },
+    {
+      "_id": "qtgmj7ht6mpntcaq3",
+      "createdAt": "2026-05-27T08:39:33.195Z",
+      "updatedAt": "2026-05-27T08:39:33.195Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "search",
+      "details": {
+        "queryText": "car"
+      },
+      "timestamp": "2026-05-27T08:39:33.193Z"
+    },
+    {
+      "_id": "845sway3fmpntcepg",
+      "createdAt": "2026-05-27T08:39:38.356Z",
+      "updatedAt": "2026-05-27T08:39:38.356Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "search",
+      "details": {
+        "queryText": "car"
+      },
+      "timestamp": "2026-05-27T08:39:38.355Z"
+    },
+    {
+      "_id": "xk5yt4yl5mpntf28d",
+      "createdAt": "2026-05-27T08:41:42.157Z",
+      "updatedAt": "2026-05-27T08:41:42.157Z",
+      "userId": null,
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "register",
+      "details": {
+        "email": "r@gmail.com"
+      },
+      "timestamp": "2026-05-27T08:41:42.156Z"
+    },
+    {
+      "_id": "0l85b5czempntf9yv",
+      "createdAt": "2026-05-27T08:41:52.183Z",
+      "updatedAt": "2026-05-27T08:41:52.183Z",
+      "userId": "mb8poro0umpntf26u",
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "click",
+      "details": {
+        "productId": "n13nhuywrmpgttbb0",
+        "name": "OmniView 4K Ultra Short Throw Projector",
+        "category": "Electronics",
+        "price": 899.99
+      },
+      "timestamp": "2026-05-27T08:41:52.181Z"
+    },
+    {
+      "_id": "2u7df3vlmmpntfah6",
+      "createdAt": "2026-05-27T08:41:52.842Z",
+      "updatedAt": "2026-05-27T08:41:52.842Z",
+      "userId": "mb8poro0umpntf26u",
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "click",
+      "details": {
+        "productId": "n13nhuywrmpgttbb0",
+        "name": "OmniView 4K Ultra Short Throw Projector",
+        "category": "Electronics",
+        "price": 899.99
+      },
+      "timestamp": "2026-05-27T08:41:52.841Z"
+    },
+    {
+      "_id": "s5i1say0tmpntfc24",
+      "createdAt": "2026-05-27T08:41:54.892Z",
+      "updatedAt": "2026-05-27T08:41:54.892Z",
+      "userId": "mb8poro0umpntf26u",
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "click",
+      "details": {
+        "productId": "n13nhuywrmpgttbb0",
+        "name": "OmniView 4K Ultra Short Throw Projector",
+        "category": "Electronics",
+        "price": 899.99
+      },
+      "timestamp": "2026-05-27T08:41:54.891Z"
+    },
+    {
+      "_id": "mzpt7wcufmpntfd3o",
+      "createdAt": "2026-05-27T08:41:56.244Z",
+      "updatedAt": "2026-05-27T08:41:56.244Z",
+      "userId": "mb8poro0umpntf26u",
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "cart",
+      "details": {
+        "productId": "n13nhuywrmpgttbb0"
+      },
+      "timestamp": "2026-05-27T08:41:56.242Z"
+    },
+    {
+      "_id": "4oup88l88mpntfpb2",
+      "createdAt": "2026-05-27T08:42:12.062Z",
+      "updatedAt": "2026-05-27T08:42:12.062Z",
+      "userId": "mb8poro0umpntf26u",
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "click",
+      "details": {
+        "productId": "lwfw06es3mpgttbb0",
+        "name": "AeroGlide Pro Smartwatch",
+        "category": "Electronics",
+        "price": 249.5
+      },
+      "timestamp": "2026-05-27T08:42:12.060Z"
+    },
+    {
+      "_id": "5o84xrutampntfsaa",
+      "createdAt": "2026-05-27T08:42:15.922Z",
+      "updatedAt": "2026-05-27T08:42:15.922Z",
+      "userId": "mb8poro0umpntf26u",
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "cart",
+      "details": {
+        "productId": "lwfw06es3mpgttbb0"
+      },
+      "timestamp": "2026-05-27T08:42:15.920Z"
+    },
+    {
+      "_id": "z49apdpigmpntgd1e",
+      "createdAt": "2026-05-27T08:42:42.818Z",
+      "updatedAt": "2026-05-27T08:42:42.818Z",
+      "userId": "mb8poro0umpntf26u",
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "search",
+      "details": {
+        "queryText": "car"
+      },
+      "timestamp": "2026-05-27T08:42:42.816Z"
+    },
+    {
+      "_id": "tq6seyhphmpntgdf8",
+      "createdAt": "2026-05-27T08:42:43.316Z",
+      "updatedAt": "2026-05-27T08:42:43.316Z",
+      "userId": "mb8poro0umpntf26u",
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "search",
+      "details": {
+        "queryText": "car"
+      },
+      "timestamp": "2026-05-27T08:42:43.315Z"
+    },
+    {
+      "_id": "epq8p3w91mpntgftj",
+      "createdAt": "2026-05-27T08:42:46.423Z",
+      "updatedAt": "2026-05-27T08:42:46.423Z",
+      "userId": "mb8poro0umpntf26u",
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "purchase",
+      "details": {
+        "productId": "lwfw06es3mpgttbb0",
+        "qty": 1
+      },
+      "timestamp": "2026-05-27T08:42:46.422Z"
+    },
+    {
+      "_id": "4br3uce5nmpntj2c2",
+      "createdAt": "2026-05-27T08:44:48.914Z",
+      "updatedAt": "2026-05-27T08:44:48.914Z",
+      "userId": "mb8poro0umpntf26u",
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "cart",
+      "details": {
+        "productId": "n13nhuywrmpgttbb0"
+      },
+      "timestamp": "2026-05-27T08:44:48.912Z"
+    },
+    {
+      "_id": "44dnvcuhzmpntj5c2",
+      "createdAt": "2026-05-27T08:44:52.802Z",
+      "updatedAt": "2026-05-27T08:44:52.802Z",
+      "userId": "mb8poro0umpntf26u",
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "purchase",
+      "details": {
+        "productId": "n13nhuywrmpgttbb0",
+        "qty": 1
+      },
+      "timestamp": "2026-05-27T08:44:52.801Z"
+    },
+    {
+      "_id": "ktpu7fk0gmpntj9xg",
+      "createdAt": "2026-05-27T08:44:58.756Z",
+      "updatedAt": "2026-05-27T08:44:58.756Z",
+      "userId": "mb8poro0umpntf26u",
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "cart",
+      "details": {
+        "productId": "lwfw06es3mpgttbb0"
+      },
+      "timestamp": "2026-05-27T08:44:58.753Z"
+    },
+    {
+      "_id": "yr9e7wu6zmpntkjw8",
+      "createdAt": "2026-05-27T08:45:58.328Z",
+      "updatedAt": "2026-05-27T08:45:58.328Z",
+      "userId": "mb8poro0umpntf26u",
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "cart",
+      "details": {
+        "productId": "wk8fsxzzhmpgttbb0"
+      },
+      "timestamp": "2026-05-27T08:45:58.326Z"
+    },
+    {
+      "_id": "8a6joizpqmpntklio",
+      "createdAt": "2026-05-27T08:46:00.432Z",
+      "updatedAt": "2026-05-27T08:46:00.432Z",
+      "userId": "mb8poro0umpntf26u",
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "cart",
+      "details": {
+        "productId": "j5vmonoedmpgttbb0"
+      },
+      "timestamp": "2026-05-27T08:46:00.430Z"
+    },
+    {
+      "_id": "p7pbbmiq9mpntkrk9",
+      "createdAt": "2026-05-27T08:46:08.265Z",
+      "updatedAt": "2026-05-27T08:46:08.265Z",
+      "userId": "mb8poro0umpntf26u",
+      "sessionId": "sess_zl4da0jfz6pmpgu08cs",
+      "eventType": "cart",
+      "details": {
+        "productId": "ow8ht4vf1mpgttbb0"
+      },
+      "timestamp": "2026-05-27T08:46:08.264Z"
+    },
+    {
+      "_id": "f5rxt3649mq2myrlw",
+      "createdAt": "2026-06-06T17:37:36.836Z",
+      "updatedAt": "2026-06-06T17:37:36.837Z",
+      "userId": null,
+      "sessionId": "sess_k35iour8zlmq2mw4lp",
+      "eventType": "search",
+      "details": {
+        "queryText": "watch"
+      },
+      "timestamp": "2026-06-06T17:37:36.829Z"
+    },
+    {
+      "_id": "or5gnm1lamq2mzmvf",
+      "createdAt": "2026-06-06T17:38:17.355Z",
+      "updatedAt": "2026-06-06T17:38:17.355Z",
+      "userId": null,
+      "sessionId": "sess_k35iour8zlmq2mw4lp",
+      "eventType": "search",
+      "details": {
+        "queryText": "headphones"
+      },
+      "timestamp": "2026-06-06T17:38:17.345Z"
+    },
+    {
+      "_id": "qjrs0m3jimq2mzxa4",
+      "createdAt": "2026-06-06T17:38:30.844Z",
+      "updatedAt": "2026-06-06T17:38:30.844Z",
+      "userId": null,
+      "sessionId": "sess_k35iour8zlmq2mw4lp",
+      "eventType": "search",
+      "details": {
+        "queryText": "laptop"
+      },
+      "timestamp": "2026-06-06T17:38:30.713Z"
     }
   ],
   "offers": [
@@ -336,16 +770,28 @@
       "_id": "8dj5yvqtlmpgu0fk1",
       "createdAt": "2026-05-22T11:23:55.969Z",
       "updatedAt": "2026-05-22T11:23:55.969Z",
-      "userId": null,
+      "userId": "mb8poro0umpntf26u",
       "sessionId": "sess_zl4da0jfz6pmpgu08cs",
       "categoryAffinity": {
-        "Home": 1
+        "Home": 6,
+        "Electronics": 68,
+        "Fashion": 5
       },
       "searchKeywords": [
         "car",
         "jeans"
       ],
-      "lastActive": "2026-05-22T11:24:19.800Z"
+      "lastActive": "2026-05-27T08:46:08.269Z",
+      "clickFrequency": {
+        "n13nhuywrmpgttbb0": 10,
+        "lwfw06es3mpgttbb0": 2,
+        "wk8fsxzzhmpgttbb0": 1
+      },
+      "recentlyViewed": [
+        "lwfw06es3mpgttbb0",
+        "n13nhuywrmpgttbb0",
+        "wk8fsxzzhmpgttbb0"
+      ]
     },
     {
       "_id": "mh8fzqq73mpguqwms",
@@ -358,6 +804,20 @@
         "car"
       ],
       "lastActive": "2026-05-22T11:44:31.155Z"
+    },
+    {
+      "_id": "3uqxl3yhfmq2myrma",
+      "createdAt": "2026-06-06T17:37:36.850Z",
+      "updatedAt": "2026-06-06T17:37:36.850Z",
+      "userId": null,
+      "sessionId": "sess_k35iour8zlmq2mw4lp",
+      "categoryAffinity": {},
+      "searchKeywords": [
+        "laptop",
+        "headphones",
+        "watch"
+      ],
+      "lastActive": "2026-06-06T17:38:31.276Z"
     }
   ]
 }

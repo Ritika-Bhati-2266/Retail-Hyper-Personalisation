@@ -359,7 +359,7 @@ export async function getRecommendations(sessionId, userId, limit = 8) {
       }
       if (weightedSearch > maxContribution) {
         maxContribution = weightedSearch;
-        reason = "Matches your search";
+        reason = "Because You Searched";
       }
       if (weightedClick > maxContribution) {
         maxContribution = weightedClick;

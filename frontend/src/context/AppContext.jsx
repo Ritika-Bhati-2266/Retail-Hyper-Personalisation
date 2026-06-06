@@ -37,6 +37,10 @@ export const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Centralized search & category filtering state
+  const [searchVal, setSearchVal] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+
   // theme
   const toggleTheme = () => {
     setTheme((prev) => {
@@ -77,6 +81,12 @@ export const AppProvider = ({ children }) => {
         if (data.segment) setCurrentSegment(data.segment);
         if (data.affinity) setCategoryAffinity(data.affinity);
 
+        console.log(
+          `%c[Search Debug] 🔄 Behavior event '${eventType}' logged successfully. Refreshing recommendations...`,
+          'color: #ec4899; font-weight: bold; font-size: 11px;',
+          { segment: data.segment, affinity: data.affinity }
+        );
+
         fetchPersonalizedData();
       }
     } catch (err) {
@@ -110,19 +120,31 @@ export const AppProvider = ({ children }) => {
   const searchProducts = async (query) => {
     setLoading(true);
     setError(null);
+    console.log(
+      `%c[Search Debug] 🔍 Initiating search for keyword: "${query}"`,
+      'color: #6366f1; font-weight: bold; font-size: 11px;'
+    );
 
     try {
       const res = await fetch(
         `${API_BASE_URL}/products/search?q=${encodeURIComponent(query)}`
       );
       const data = await res.json();
+      const matched = Array.isArray(data) ? data : [];
 
-      setProducts(Array.isArray(data) ? data : []);
+      console.log(
+        `%c[Search Debug] ✅ Search found ${matched.length} matching products`,
+        'color: #10b981; font-weight: bold; font-size: 11px;',
+        matched.map(p => ({ id: p._id, name: p.name, category: p.category, tags: p.tags }))
+      );
+
+      setProducts(matched);
 
       // fire and forget (don’t block UI)
       logBehavior('search', { queryText: query });
     } catch (err) {
       setError("Search failed");
+      console.error('[Search Debug] ❌ Search failed:', err);
     } finally {
       setLoading(false);
     }
@@ -133,6 +155,10 @@ export const AppProvider = ({ children }) => {
   // =========================
   const fetchPersonalizedData = async () => {
     setRecLoading(true);
+    console.log(
+      `%c[Search Debug] 📥 Fetching updated recommendations & personalized offers...`,
+      'color: #a78bfa; font-weight: bold; font-size: 11px;'
+    );
     try {
       const recRes = await fetch(
         `${API_BASE_URL}/products/recommendations?sessionId=${sessionId}`,
@@ -140,7 +166,14 @@ export const AppProvider = ({ children }) => {
       );
       const recData = await recRes.json();
 
-      if (Array.isArray(recData)) setRecommendations(recData);
+      if (Array.isArray(recData)) {
+        setRecommendations(recData);
+        console.log(
+          `%c[Search Debug] ✨ Recommendations updated with ${recData.length} items.`,
+          'color: #ec4899; font-weight: bold; font-size: 11px;',
+          recData.map(r => ({ id: r._id, name: r.name, reason: r.recommendationReason }))
+        );
+      }
 
       const offRes = await fetch(
         `${API_BASE_URL}/offers?sessionId=${sessionId}`,
@@ -264,12 +297,26 @@ export const AppProvider = ({ children }) => {
     alert("Order placed successfully 🚀");
   };
 
+  // Centralized debounced search & category filtering
+  useEffect(() => {
+    const isSearchEmpty = searchVal.trim() === '';
+    
+    if (isSearchEmpty) {
+      fetchProducts(selectedCategory);
+    } else {
+      setLoading(true); // Immediate loading state for better UX
+      const delayDebounce = setTimeout(() => {
+        searchProducts(searchVal);
+      }, 500); // Slightly longer debounce for smoother experience
+      return () => clearTimeout(delayDebounce);
+    }
+  }, [searchVal, selectedCategory]);
+
   // =========================
   // INIT
   // =========================
   useEffect(() => {
     const init = async () => {
-      fetchProducts();
       fetchPersonalizedData();
     };
     init();
@@ -302,6 +349,10 @@ export const AppProvider = ({ children }) => {
         removeFromCart,
         checkout,
         refreshPersonalization: fetchPersonalizedData,
+        searchVal,
+        setSearchVal,
+        selectedCategory,
+        setSelectedCategory,
       }}
     >
       {children}

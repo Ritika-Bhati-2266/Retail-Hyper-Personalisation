@@ -2,6 +2,8 @@ import express from 'express';
 import { Product } from '../models/product.js';
 import { getRecommendations } from '../services/personalisation.js';
 import { authenticateUser } from '../middleware/auth.js';
+import Fuse from 'fuse.js';
+import { expandQuery } from '../data/synonyms.js';
 
 const router = express.Router();
 
@@ -17,26 +19,37 @@ router.get('/', async (req, res) => {
   }
 });
 
+
 // Search products by name, description, tags, or category
 router.get('/search', async (req, res) => {
   const { q } = req.query;
   try {
-    if (!q) {
-      const products = await Product.find({});
-      return res.json(products);
+    const allProducts = await Product.find({});
+    
+    if (!q || q.toString().trim() === '') {
+      return res.json(allProducts);
     }
 
     const query = q.toString().toLowerCase().trim();
-    const allProducts = await Product.find({});
-    
-    // Perform manual filtering for compatibility with both MongoDB regex queries and Mock JSON data
-    const matchedProducts = allProducts.filter(product => {
-      const nameMatch = product.name?.toLowerCase().includes(query);
-      const descMatch = product.description?.toLowerCase().includes(query);
-      const categoryMatch = product.category?.toLowerCase().includes(query);
-      const tagMatch = product.tags?.some(tag => tag.toLowerCase().includes(query));
-      return nameMatch || descMatch || categoryMatch || tagMatch;
-    });
+    const expandedQuery = expandQuery(query);
+
+    const fuseOptions = {
+      keys: [
+        { name: 'name', weight: 1.0 },
+        { name: 'category', weight: 0.7 },
+        { name: 'tags', weight: 0.8 },
+        { name: 'description', weight: 0.4 }
+      ],
+      threshold: 0.4, // Lower threshold means stricter matching
+      includeScore: true,
+      shouldSort: true
+    };
+
+    const fuse = new Fuse(allProducts, fuseOptions);
+    const results = fuse.search(expandedQuery);
+
+    // Map back to the original objects
+    const matchedProducts = results.map(result => result.item);
 
     res.json(matchedProducts);
   } catch (error) {
